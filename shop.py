@@ -1,18 +1,18 @@
 ####################### DO NOT MODIFY THIS CODE ########################
 menu = {
-    "original cupcake": 2,
+    "original cupcake": 2.000,
     "signature cupcake": 2.750,
-    "coffee": 1,
+    "coffee": 1.000,
     "tea": 0.900,
     "bottled water": 0.750
 }
 original_flavors = ["vanilla", "chocolate", "strawberry", "caramel", "raspberry"]
-original_price = 2
+original_price = 2.000
 signature_price = 2.750
 
 ############################# Start Here! ##############################
-cupcake_shop_name = #complete me!
-signature_flavors = #complete me!
+cupcake_shop_name = "mini bakes"
+signature_flavors = ['vinegar', 'chilli', 'mashroom', 'chicken']
 order_list = []
 
 
@@ -21,22 +21,29 @@ def print_menu():
     Print the items in the menu dictionary.
     """
     # your code goes here!
-
+    print('******** WELCOME TO MINI BAKES ********')
+    print('Our menu:')
+    for i in menu:
+        print('- "%s" (KD %.3f)' % (i, menu[i]))
 
 def print_originals():
     """
     Print the original flavor cupcakes.
     """
-    print("Our original flavor cupcakes (KD %s each):" % original_price)
+    print("Our original flavor cupcakes (KD %0.3f each):" % original_price)
     # your code goes here!
-
+    for i in original_flavors:
+        print('- "%s"' % i)
 
 def print_signatures():
     """
     Print the signature flavor cupcakes.
     """
-    print("Our signature flavor cupcake (KD %s each):" % signature_price)
+    print("Our signature flavor cupcake (KD %0.3f each):" % signature_price)
     # your code goes here!
+    for i in signature_flavors:
+        print('- "%s"' % i)
+
 
 
 def is_valid_order(order):
@@ -44,7 +51,10 @@ def is_valid_order(order):
     Check if an order exists in the shop.
     """
     # your code goes here!
-
+    if order in menu or order in original_flavors or order in signature_flavors:
+        return True
+    else:
+        return False
 
 def get_order():
     """
@@ -52,7 +62,14 @@ def get_order():
     """
     order_list = []
     # your code goes here!
-
+    print("What's your order? (Enter the exact spelling of the item you want, then press 'Enter'. Type 'Exit' to end your order)")
+    not_done = True
+    while not_done:
+        order = input()
+        if is_valid_order(order):
+            order_list.append(order)
+        elif order == 'Exit' or order == 'exit':
+            not_done = False
     return order_list
 
 
@@ -62,6 +79,10 @@ def accept_credit_card(total):
     """
     # your code goes here!
 
+    if float(get_total_price(total)) > 5.000:
+        return 'Your payment is eligible for credit card payment'
+    else:
+        return 'Your payment is not eligible for credit card payment'
 
 def get_total_price(order_list):
     """
@@ -69,8 +90,25 @@ def get_total_price(order_list):
     """
     total = 0
     # your code goes here!
-
-    return total
+    '''
+    #### IM SURE THAT THERE IS WAY BUT I CAN'T FIGURE IT OUT, WHAT IF WE HAVE HUNDRES OF PRODUCTS? ###
+    '''
+    for i in order_list:
+        if i == 'original cupcake':
+            total += 2.000
+        elif i == 'signature cupcake':
+            total += 2.750
+        elif i == 'coffee':
+            total += 1.000
+        elif i == 'tea':
+            total += 0.900
+        elif i == 'bottled water':
+            total += 0.750
+        elif i == 'vanilla' or i == 'chocolate' or i == 'strawberry' or i == 'caramel' or i == 'raspberry':
+            total += 2.000
+        elif i == 'vinegar' or i == 'chilli' or i == 'mashroom' or i == 'chicken':
+            total += 2.750
+    return (total)
 
 
 def print_order(order_list):
@@ -78,5 +116,18 @@ def print_order(order_list):
     Print the order of the customer.
     """
     print()
+    print('===============================')
     print("Your order is: ")
+    print('===============================')
     # your code goes here!
+    for i in order_list:
+        print('- %s' % i)
+    '''### I didnt understand we we have choosen order_list in the params,
+        dont it suppose to be (total) for the accept_credit_card function? ###'''
+    print()
+    print('                =====')
+    print('That will be KD %0.3f' % get_total_price(order_list))
+    print('                =====')
+    print(accept_credit_card(order_list))
+    print()
+    print('*** THANK YOU FOR VISITING MINI BAKES ***')
