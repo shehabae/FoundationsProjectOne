@@ -70,6 +70,8 @@ def get_order():
             order_list.append(order)
         elif order == 'Exit' or order == 'exit':
             not_done = False
+        else:
+            print('Please enter a valid order!')
     return order_list
 
 
@@ -79,7 +81,7 @@ def accept_credit_card(total):
     """
     # your code goes here!
 
-    if float(get_total_price(total)) > 5.000:
+    if total >= 5.000:
         return 'Your payment is eligible for credit card payment'
     else:
         return 'Your payment is not eligible for credit card payment'
@@ -90,9 +92,7 @@ def get_total_price(order_list):
     """
     total = 0
     # your code goes here!
-    '''
-    #### IM SURE THAT THERE IS WAY BUT I CAN'T FIGURE IT OUT, WHAT IF WE HAVE HUNDRES OF PRODUCTS? ###
-    '''
+
     for i in order_list:
         if i == 'original cupcake':
             total += 2.000
@@ -115,6 +115,7 @@ def print_order(order_list):
     """
     Print the order of the customer.
     """
+    total = get_total_price(order_list)
     print()
     print('===============================')
     print("Your order is: ")
@@ -122,12 +123,10 @@ def print_order(order_list):
     # your code goes here!
     for i in order_list:
         print('- %s' % i)
-    '''### I didnt understand we we have choosen order_list in the params,
-        dont it suppose to be (total) for the accept_credit_card function? ###'''
     print()
     print('                =====')
-    print('That will be KD %0.3f' % get_total_price(order_list))
+    print('That will be KD %0.3f' % total)
     print('                =====')
-    print(accept_credit_card(order_list))
+    print(accept_credit_card(total))
     print()
     print('*** THANK YOU FOR VISITING MINI BAKES ***')
